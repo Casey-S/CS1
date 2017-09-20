@@ -22,13 +22,14 @@ def take_bet():
         # return Bet_color
     else:
         print("Invalid color")
-        return
+        pass
 
-    bet_amount = raw_input("Enter bet amount: ")
+    bet_amount = input("Bet amount: ")
 
     return Bet_color, bet_amount
     # bet_number = number
     # bet_amount = amount
+
 
 def roll_ball():
     '''returns a random number between 0 and 37'''
@@ -56,12 +57,22 @@ def check_results():
 
     if bet_color[0] == ball_color:
         print("Color match!")
+        color_match = True
+        return color_match, bet_amount
+    else:
+        color_match = False
+        return color_match, bet_amount
 
-    print(bet_amount)
 
 def payout():
     '''returns total amount won or lost by user based on results of roll. '''
-    pass
+    bet_net = check_results()
+    if bet_net[0] is True:
+        bet_amount = bet_net[1] * 2
+        # bet_amount = bet_amount * 2
+        print("You won %s" % bet_amount)
+    else:
+        pass
 
 
 def play_game():
@@ -78,4 +89,5 @@ def play_game():
 
 # take_bet()
 
-check_results()
+# check_results()
+payout()
