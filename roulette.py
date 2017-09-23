@@ -90,9 +90,6 @@ while True:
         """
         pass
 
-    # take_bet()
-
-    # check_results()
     payout()
     while True:
         answer = raw_input('Run again? (y/n): ')
