@@ -31,7 +31,7 @@ def isWordGuessed(secretWord, correctGuesses):
         return False
 
 
-def getGuessedLetter(secretWord):
+def getGuessedLetter(secretWord, letterArray, incorrectArray):
     '''
     secretWord: string, the random word the user is trying to guess.
     This is selected on line 9.
@@ -42,24 +42,21 @@ def getGuessedLetter(secretWord):
     For letters in the word that the user has not yet guessed,
     shown an _ (underscore) instead.
     '''
-    letterArray = ['_'] * len(secretWord)
-    numberOfGuesses = 7
-    while numberOfGuesses > 1:
-        numberOfGuesses = numberOfGuesses - 1
-        print("You have %s guesses left" % numberOfGuesses)
-        userGuess = raw_input("Guess a letter: ")
-        if userGuess in secretWord:
-            print("%s is correct." % userGuess)
-            for i, letter in enumerate(secretWord):
-                if userGuess is letter:
-                    letterArray[i] = letter
-        else:
-            print("Incorrect, try again.")
-        correctGuesses = ''.join([x + "" for x in letterArray])
-        print(correctGuesses)
-        if correctGuesses in secretWord:
-            break
-            return correctGuesses
+    userGuess = raw_input("Guess a letter: ")
+    if userGuess in secretWord:
+        print("%s is correct." % userGuess)
+        for i, letter in enumerate(secretWord):
+            if userGuess is letter:
+                letterArray[i] = letter
+    else:
+        print("Incorrect, try again.")
+        incorrectArray.append(userGuess)
+    correctGuesses = ''.join([i + "" for i in letterArray])
+    print(correctGuesses)
+    incorrectArray = ''.join([i + " " for i in incorrectArray])
+    print(incorrectArray)
+    if correctGuesses in secretWord:
+        return correctGuesses
 
 
 def getAvailableLetters(correctGuesses):
@@ -73,23 +70,25 @@ def getAvailableLetters(correctGuesses):
 def hangman(secretWord):
     '''
     secretWord: string, the secret word to guess.
-
     Starts up a game of Hangman in the command line.
-
     * At the start of the game, let the user know how many
       letters the secretWord contains.
-
     * Ask the user to guess one letter per round.
-
     * The user should receive feedback immediately after each guess
       about whether their guess appears in the computer's word.
-
     * After each round, you should also display to the user the
       partially guessed word so far, as well as letters that the
       user has not yet guessed.
     '''
+    letterArray = ['_'] * len(secretWord)
+    incorrectArray = []
     print("The word has %s letters" % len(secretWord))
-    getGuessedLetter(secretWord)
+    numberOfGuesses = 7
+    while numberOfGuesses > 1:
+        numberOfGuesses = numberOfGuesses - 1
+        print("You have %s guesses left" % numberOfGuesses)
+        getGuessedLetter(secretWord, letterArray, incorrectArray)
+    print('The word was "%s!"' % secretWord)
 
 
 secretWord = loadWord()
