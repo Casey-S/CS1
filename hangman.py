@@ -17,32 +17,19 @@ def loadWord():
     return secretWord
 
 
-def isWordGuessed(secretWord, correctGuesses):
-    '''
-    secretWord: string, the random word the user is trying to guess.
-    This is selected on line 9.
-    correctGuesses: list of letters that have been guessed correctly so far.
-    returns: boolean, True if all letters of secretWord are in correctGuesses;
-    False otherwise
-    '''
-    if correctGuesses in secretWord:
-        return True
-    else:
-        return False
-
-
 def getGuessedLetter(secretWord, letterArray, incorrectArray):
     '''
     secretWord: string, the random word the user is trying to guess.
-    This is selected on line 9.
-    correctGuesses: list of letters that have been guessed correctly so far.
-    returns: string, of letters and underscores. For letters in the word that
-    the user has guessed correctly,
-    the string should contain the letter at the correct position.
+    letterArray: array of underscores the length of secretWord.
+    incorrectArray: array of incorrect guessed letters.
+    correctGuesses: letters and underscores in correct position.
     For letters in the word that the user has not yet guessed,
     shown an _ (underscore) instead.
     '''
     userGuess = raw_input("Guess a letter: ")
+    if userGuess == secretWord:
+        print("WINNER")
+        exit()
     if userGuess in secretWord:
         print("%s is correct." % userGuess)
         for i, letter in enumerate(secretWord):
@@ -51,20 +38,13 @@ def getGuessedLetter(secretWord, letterArray, incorrectArray):
     else:
         print("Incorrect, try again.")
         incorrectArray.append(userGuess)
-    correctGuesses = ''.join([i + "" for i in letterArray])
-    print(correctGuesses)
+    letterArray = ''.join([i + "" for i in letterArray])
+    print(letterArray)
+    if letterArray == secretWord:
+        print("WINNER")
+        exit()
     incorrectArray = ''.join([i + " " for i in incorrectArray])
     print(incorrectArray)
-    if correctGuesses in secretWord:
-        return correctGuesses
-
-
-def getAvailableLetters(correctGuesses):
-    '''
-    correctGuesses: list of letters that have been guessed so far
-    returns: string, comprised of letters that represents what letters have not
-    yet been guessed.
-    '''
 
 
 def hangman(secretWord):
@@ -83,13 +63,14 @@ def hangman(secretWord):
     letterArray = ['_'] * len(secretWord)
     incorrectArray = []
     print("The word has %s letters" % len(secretWord))
-    numberOfGuesses = 7
-    while numberOfGuesses > 1:
-        numberOfGuesses = numberOfGuesses - 1
+    numberOfGuesses = 10
+    while numberOfGuesses > 0:
         print("You have %s guesses left" % numberOfGuesses)
         getGuessedLetter(secretWord, letterArray, incorrectArray)
+        numberOfGuesses = numberOfGuesses - 1
     print('The word was "%s!"' % secretWord)
 
 
 secretWord = loadWord()
-hangman(loadWord())
+print(secretWord)
+hangman(secretWord)
