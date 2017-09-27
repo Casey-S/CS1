@@ -22,7 +22,6 @@ def getGuessedLetter(secretWord, letterArray, incorrectArray):
     secretWord: string, the random word the user is trying to guess.
     letterArray: array of underscores the length of secretWord.
     incorrectArray: array of incorrect guessed letters.
-    correctGuesses: letters and underscores in correct position.
     For letters in the word that the user has not yet guessed,
     shown an _ (underscore) instead.
     '''
@@ -38,18 +37,20 @@ def getGuessedLetter(secretWord, letterArray, incorrectArray):
     else:
         print("Incorrect, try again.")
         incorrectArray.append(userGuess)
+
+    # join all elements of letterArray into one element and print.
     letterArray = ''.join([i + "" for i in letterArray])
     print(letterArray)
     if letterArray == secretWord:
         print("WINNER")
         exit()
+    # join all elements of incorrectArray into one element and print.
     incorrectArray = ''.join([i + " " for i in incorrectArray])
     print(incorrectArray)
 
 
 def hangman(secretWord):
     '''
-    secretWord: string, the secret word to guess.
     Starts up a game of Hangman in the command line.
     * At the start of the game, let the user know how many
       letters the secretWord contains.
@@ -72,5 +73,4 @@ def hangman(secretWord):
 
 
 secretWord = loadWord()
-print(secretWord)
 hangman(secretWord)
