@@ -1,4 +1,6 @@
 {
+  "test_classroom.py::test_add_student_to_roster": true, 
+  "test_hangman.py": true, 
   "test_hangman.py::test_getGuessedLetter": true, 
   "test_hangman.py::test_isWordGuessed": true, 
   "test_hangman.py::testisWordGuessed": true
