@@ -1,5 +1,4 @@
 from oop_classroom import Classroom
-from oop_students import Student
 
 
 def setup_classroom():
